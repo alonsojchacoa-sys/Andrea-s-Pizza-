@@ -1,0 +1,675 @@
+```html
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andrea's Pizza & Pasapalos | Sabor Artesanal</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            red: '#C8322B',
+                            darkRed: '#8B0000',
+                            gold: '#F59E0B',
+                            amber: '#F59E0B',
+                            dark: '#121212',
+                            card: '#1C1C1E',
+                            cream: '#FDFBF7'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .pizza-shadow {
+            box-shadow: 0 10px 30px -10px rgba(200, 50, 43, 0.5);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #18181b;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #3f3f46;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="bg-brand-dark text-gray-100 font-sans antialiased selection:bg-brand-red selection:text-white pb-20 md:pb-0">
+
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-40 bg-brand-dark/95 backdrop-blur-md border-b border-zinc-800 shadow-xl transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
+            <!-- Logo Incorporado -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="relative w-14 h-14 rounded-full bg-brand-red p-0.5 border-2 border-brand-amber overflow-hidden flex-shrink-0 shadow-lg group-hover:scale-105 transition-all">
+                    <!-- SVG Ilustración fiel del avatar Andrea con lentes rosa -->
+                    <svg viewBox="0 0 100 100" class="w-full h-full">
+                        <circle cx="50" cy="50" r="50" fill="#E53E3E"/>
+                        <!-- Cabello marrón oscuro con trenzas -->
+                        <path d="M 25 40 C 25 20, 75 20, 75 40 C 75 50, 80 75, 75 80 C 70 85, 65 70, 65 60 C 50 65, 35 65, 35 60 C 35 70, 30 85, 25 80 C 20 75, 25 50, 25 40 Z" fill="#38220F"/>
+                        <!-- Gorro de Chef -->
+                        <path d="M 30 30 C 25 15, 40 5, 50 8 C 60 5, 75 15, 70 30 Z" fill="#FFFFFF"/>
+                        <rect x="32" y="27" width="36" height="7" fill="#F7FAFC" rx="2"/>
+                        <!-- Cara -->
+                        <ellipse cx="50" cy="45" rx="18" ry="16" fill="#FDE047" opacity="0.3"/>
+                        <ellipse cx="50" cy="45" rx="17" ry="15" fill="#FED7AA"/>
+                        <!-- Lentes Rosa Fieles -->
+                        <rect x="37" y="40" width="10" height="8" rx="2" fill="none" stroke="#EC4899" stroke-width="2.5"/>
+                        <rect x="53" y="40" width="10" height="8" rx="2" fill="none" stroke="#EC4899" stroke-width="2.5"/>
+                        <line x1="47" y1="44" x2="53" y2="44" stroke="#EC4899" stroke-width="2"/>
+                        <!-- Ojos y Sonrisa -->
+                        <circle cx="42" cy="44" r="2" fill="#1A202C"/>
+                        <circle cx="58" cy="44" r="2" fill="#1A202C"/>
+                        <path d="M 45 52 Q 50 56 55 52" stroke="#C53030" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        <!-- Vestimenta y Delantal -->
+                        <path d="M 30 60 L 70 60 L 75 90 L 25 90 Z" fill="#1A202C"/>
+                        <path d="M 38 65 L 62 65 L 60 90 L 40 90 Z" fill="#10B981"/>
+                    </svg>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-serif text-2xl font-black tracking-wide text-white group-hover:text-brand-amber transition-colors leading-none">Andrea's</span>
+                    <span class="text-xs font-bold uppercase tracking-widest text-brand-amber mt-1 bg-black/40 px-2 py-0.5 rounded border border-brand-amber/30">PIZZA & PASAPALOS</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold tracking-wide">
+                <a href="#hero" class="hover:text-brand-amber transition-colors">Inicio</a>
+                <a href="#menu" class="hover:text-brand-amber transition-colors">Menú de Pizzas</a>
+                <a href="#combos" class="hover:text-brand-amber transition-colors">Combos & Pasapalos</a>
+                <a href="#contacto" class="hover:text-brand-amber transition-colors">Contacto</a>
+            </nav>
+
+            <!-- WhatsApp & Cart -->
+            <div class="flex items-center gap-4">
+                <button id="cart-toggle-btn" onclick="toggleCart()" class="relative p-3 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white transition-all focus:outline-none border border-zinc-700">
+                    <i class="fa-solid fa-cart-shopping text-xl text-brand-amber"></i>
+                    <span id="cart-badge" class="hidden absolute -top-2 -right-2 bg-brand-red text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center border-2 border-brand-dark animate-pulse">0</span>
+                </button>
+                <a href="https://wa.me/584246426547" target="_blank" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-green-600 hover:bg-green-500 text-white font-bold text-sm shadow-lg transition-all hover:scale-105 gap-2 border border-green-400/40">
+                    <i class="fa-brands fa-whatsapp text-xl"></i> (0424) 642-6547
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section con Banner Integrado -->
+    <section id="hero" class="relative min-h-[85vh] flex items-center justify-center overflow-hidden py-12 px-4 bg-gradient-to-b from-brand-red/20 via-brand-dark to-brand-dark">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center relative z-10">
+            <!-- Content -->
+            <div class="text-center md:text-left space-y-6">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-red/30 border border-brand-red text-brand-amber text-xs font-bold uppercase tracking-widest backdrop-blur-sm">
+                    <i class="fa-solid fa-fire text-brand-amber"></i> Sabor Artesanal Maracaibo
+                </div>
+                <h1 class="font-serif text-4xl sm:text-6xl font-black text-white leading-tight">
+                    Las Mejores Pizzas & <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-amber via-yellow-400 to-brand-red">Pasapalos para tus Eventos</span>
+                </h1>
+                <p class="text-gray-300 text-lg leading-relaxed">
+                    Pizzas crujientes preparadas con salsa napolitana casera, los mejores combos de alas con papas y combos de pasapalos surtidos desde 10 hasta 200 unidades.
+                </p>
+                
+                <!-- Highlights Info -->
+                <div class="grid grid-cols-3 gap-3 pt-2 text-left">
+                    <div class="bg-zinc-900/80 p-3 rounded-xl border border-zinc-800">
+                        <span class="block text-brand-amber font-bold text-sm">🍕 Margarita</span>
+                        <span class="text-xs text-gray-400">Jamón, Queso & Salsa Napolitana</span>
+                    </div>
+                    <div class="bg-zinc-900/80 p-3 rounded-xl border border-zinc-800">
+                        <span class="block text-brand-amber font-bold text-sm">🌽 Primavera</span>
+                        <span class="text-xs text-gray-400">Jamón, Queso, Maíz & Tocineta</span>
+                    </div>
+                    <div class="bg-zinc-900/80 p-3 rounded-xl border border-zinc-800">
+                        <span class="block text-brand-amber font-bold text-sm">🍕 Pepperoni</span>
+                        <span class="text-xs text-gray-400">Pepperoni & Salsa Napolitana</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-4">
+                    <a href="#menu" class="px-8 py-4 rounded-full bg-brand-red hover:bg-brand-darkRed text-white font-bold text-lg shadow-xl pizza-shadow transition-all hover:scale-105 flex items-center justify-center gap-3">
+                        <i class="fa-solid fa-utensils"></i> Ver Menú Completo
+                    </a>
+                    <a href="https://wa.me/584246426547?text=Hola%20Andrea's%20Pizza,%20quiero%20hacer%20un%20pedido" target="_blank" class="px-8 py-4 rounded-full bg-green-600 hover:bg-green-500 text-white font-bold text-lg transition-all hover:scale-105 flex items-center justify-center gap-3 shadow-lg">
+                        <i class="fa-brands fa-whatsapp text-2xl"></i> Pedir por WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <!-- Visual Hero Banner Image -->
+            <div class="relative flex justify-center">
+                <div class="relative w-full max-w-md rounded-3xl overflow-hidden border-4 border-brand-amber/40 shadow-2xl bg-zinc-900">
+                    <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80" alt="Andrea's Pizza Deliciosa" class="w-full h-80 object-cover transform hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                    <div class="absolute bottom-4 left-4 right-4 bg-brand-dark/90 backdrop-blur-md p-4 rounded-2xl border border-zinc-700 text-center">
+                        <p class="font-serif text-xl font-bold text-brand-amber">¡NUEVO COMBO DE PASTELES!</p>
+                        <p class="text-sm text-gray-200">10 Pasteles crujientes + Salsa especial por solo <span class="text-green-400 font-extrabold text-lg">$3.50</span></p>
+                        <p class="text-[10px] text-gray-400 italic mt-1">*Imágenes con fines de referencia ilustrativa.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-20 bg-zinc-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-8">
+                <span class="text-brand-amber text-xs font-bold uppercase tracking-widest bg-zinc-900 px-4 py-1.5 rounded-full border border-brand-amber/30">Carta Digital</span>
+                <h2 class="font-serif text-4xl sm:text-5xl font-extrabold text-white mt-4">Nuestro Menú Específico</h2>
+                <p class="text-gray-400 mt-2">Haz tu selección y agrega al carrito para enviar tu pedido directamente a WhatsApp.</p>
+                <div class="mt-4 inline-flex items-center gap-2 bg-zinc-900/90 border border-brand-amber/30 px-4 py-2 rounded-xl text-xs text-brand-amber font-medium">
+                    <i class="fa-solid fa-circle-info text-sm"></i>
+                    <span><strong>Nota:</strong> Las fotografías son de carácter referencial. La presentación final puede diferir.</span>
+                </div>
+            </div>
+
+            <!-- Categories Tabs -->
+            <div class="flex flex-wrap justify-center gap-2 sm:gap-4 mb-12" id="category-tabs">
+                <button onclick="filterCategory('todos')" class="tab-btn active px-6 py-3 rounded-full text-sm font-bold transition-all bg-brand-red text-white shadow-lg">
+                    <i class="fa-solid fa-border-all mr-2"></i>Todos
+                </button>
+                <button onclick="filterCategory('pizzas')" class="tab-btn px-6 py-3 rounded-full text-sm font-bold transition-all bg-zinc-900 text-gray-300 hover:bg-zinc-800 border border-zinc-800">
+                    <i class="fa-solid fa-pizza-slice mr-2"></i>Pizzas
+                </button>
+                <button onclick="filterCategory('combos')" class="tab-btn px-6 py-3 rounded-full text-sm font-bold transition-all bg-zinc-900 text-gray-300 hover:bg-zinc-800 border border-zinc-800">
+                    <i class="fa-solid fa-fire mr-2"></i>Combos & Alas
+                </button>
+                <button onclick="filterCategory('pasapalos')" class="tab-btn px-6 py-3 rounded-full text-sm font-bold transition-all bg-zinc-900 text-gray-300 hover:bg-zinc-800 border border-zinc-800">
+                    <i class="fa-solid fa-utensils mr-2"></i>Pasapalos
+                </button>
+                <button onclick="filterCategory('otros')" class="tab-btn px-6 py-3 rounded-full text-sm font-bold transition-all bg-zinc-900 text-gray-300 hover:bg-zinc-800 border border-zinc-800">
+                    <i class="fa-solid fa-bottle-water mr-2"></i>Bebidas y Extras
+                </button>
+            </div>
+
+            <!-- Menu Grid -->
+            <div id="menu-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Productos dinámicos con fotos HD e ingredientes exactos -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Seccion de Pasapalos Destacada -->
+    <section id="combos" class="py-20 bg-zinc-900 border-t border-b border-zinc-800 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <span class="text-brand-amber font-bold text-xs uppercase tracking-widest bg-brand-red/20 px-3 py-1 rounded-full border border-brand-red/40">Opciones para Fiestas</span>
+                    <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white leading-tight">Andrea's Pasapalos Surtidos</h2>
+                    <p class="text-gray-300 leading-relaxed">
+                        Preparamos los mejores pasapalos crujientes y frescos para cualquier tipo de evento. Puedes combinar tus bandejas con las siguientes opciones:
+                    </p>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 text-sm font-semibold text-white">
+                        <div class="bg-zinc-800/80 p-3 rounded-xl border border-zinc-700 flex items-center gap-2">
+                            <i class="fa-solid fa-cheese text-brand-amber"></i> Tequeños
+                        </div>
+                        <div class="bg-zinc-800/80 p-3 rounded-xl border border-zinc-700 flex items-center gap-2">
+                            <i class="fa-solid fa-bread-slice text-brand-amber"></i> Pastelitos
+                        </div>
+                        <div class="bg-zinc-800/80 p-3 rounded-xl border border-zinc-700 flex items-center gap-2">
+                            <i class="fa-solid fa-box text-brand-amber"></i> Tamalitos
+                        </div>
+                        <div class="bg-zinc-800/80 p-3 rounded-xl border border-zinc-700 flex items-center gap-2">
+                            <i class="fa-solid fa-cookie text-brand-amber"></i> Empanaditas
+                        </div>
+                        <div class="bg-zinc-800/80 p-3 rounded-xl border border-zinc-700 flex items-center gap-2">
+                            <i class="fa-solid fa-pizza-slice text-brand-amber"></i> Pizzitas
+                        </div>
+                        <div class="bg-zinc-800/80 p-3 rounded-xl border border-zinc-700 flex items-center gap-2">
+                            <i class="fa-solid fa-star text-brand-amber"></i> Y mucho más
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-4">
+                        <img src="https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?auto=format&fit=crop&w=500&q=80" alt="Pasapalos tequeños" class="rounded-2xl shadow-xl object-cover h-48 w-full border border-zinc-700">
+                        <img src="https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=500&q=80" alt="Empanaditas y pasapalos" class="rounded-2xl shadow-xl object-cover h-64 w-full border border-zinc-700">
+                    </div>
+                    <div class="space-y-4 pt-8">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=500&q=80" alt="Pizzitas aperitivo" class="rounded-2xl shadow-xl object-cover h-64 w-full border border-zinc-700">
+                        <img src="https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=500&q=80" alt="Combo alas de pollo" class="rounded-2xl shadow-xl object-cover h-48 w-full border border-zinc-700">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark py-12 border-t border-zinc-800 text-center text-gray-400 text-sm">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-brand-red p-0.5 border border-brand-amber overflow-hidden">
+                    <svg viewBox="0 0 100 100" class="w-full h-full">
+                        <circle cx="50" cy="50" r="50" fill="#E53E3E"/>
+                        <circle cx="50" cy="45" rx="17" ry="15" fill="#FED7AA"/>
+                        <rect x="37" y="40" width="10" height="8" rx="2" fill="none" stroke="#EC4899" stroke-width="2.5"/>
+                        <rect x="53" y="40" width="10" height="8" rx="2" fill="none" stroke="#EC4899" stroke-width="2.5"/>
+                    </svg>
+                </div>
+                <span class="font-serif text-xl font-bold text-white">Andrea's Pizza & Pasapalos</span>
+            </div>
+            <div class="text-center md:text-left">
+                <p>&copy; <span id="year"></span> Andrea's Pizza. Pedidos por WhatsApp al <strong class="text-white">(0424) 642-6547</strong></p>
+                <p class="text-xs text-gray-500 mt-1 italic">* Las fotos exhibidas son exclusivamente de referencia ilustrativa.</p>
+            </div>
+            <div class="flex space-x-6 text-xl">
+                <a href="https://wa.me/584246426547" target="_blank" class="text-green-500 hover:scale-110 transition-transform"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="https://facebook.com/AndreasPizza" target="_blank" class="text-blue-500 hover:scale-110 transition-transform"><i class="fa-brands fa-facebook"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Slide-over Cart Drawer -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden hidden" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="toggleCart()"></div>
+
+        <div class="fixed inset-y-0 right-0 pl-10 max-w-full flex">
+            <div class="w-screen max-w-md bg-zinc-900 border-l border-zinc-800 text-white shadow-2xl flex flex-col">
+                <div class="p-6 border-b border-zinc-800 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-cart-shopping text-brand-amber text-xl"></i>
+                        <h2 class="font-serif text-xl font-bold text-white">Tu Carrito de Compras</h2>
+                    </div>
+                    <button onclick="toggleCart()" class="text-gray-400 hover:text-white p-2">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
+
+                <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar">
+                    <!-- Dinámico -->
+                </div>
+
+                <div class="p-6 border-t border-zinc-800 bg-zinc-950 space-y-4">
+                    <div class="p-2 bg-zinc-900 rounded-lg text-center border border-zinc-800">
+                        <p class="text-[11px] text-gray-400 italic"><i class="fa-solid fa-circle-info text-brand-amber mr-1"></i>Las imágenes exhibidas en la web son de referencia.</p>
+                    </div>
+
+                    <div class="flex justify-between text-xl font-extrabold text-white">
+                        <span>Total:</span>
+                        <span id="cart-total" class="text-brand-amber">$0.00</span>
+                    </div>
+
+                    <button onclick="sendWhatsAppOrder()" class="w-full py-4 rounded-xl bg-green-600 hover:bg-green-500 text-white font-extrabold text-center flex items-center justify-center gap-3 shadow-xl transition-all hover:scale-[1.02]">
+                        <i class="fa-brands fa-whatsapp text-2xl"></i>
+                        <span>Enviar Pedido por WhatsApp</span>
+                    </button>
+
+                    <button onclick="clearCart()" class="w-full py-2 text-xs text-gray-500 hover:text-red-400 transition-colors">
+                        Vaciar Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Data and Logic -->
+    <script>
+        // Productos con especificaciones completas de imágenes e ingredientes exactos
+        const menuProducts = [
+            // PIZZAS FAMILIARES
+            { 
+                id: 1, 
+                name: "Pizza Familiar - Margarita / Jamón y Queso", 
+                category: "pizzas", 
+                price: 9.00, 
+                desc: "8 Porciones. Preparada con jamón de primera, queso mozzarella abundante y salsa napolitana artesanal.", 
+                img: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=600&q=80", 
+                badge: "8 Porciones" 
+            },
+            { 
+                id: 2, 
+                name: "Pizza Familiar - Pepperoni", 
+                category: "pizzas", 
+                price: 10.00, 
+                desc: "8 Porciones. Cargada de pepperoni premium crujiente, queso mozzarella y salsa napolitana.", 
+                img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=600&q=80", 
+                badge: "8 Porciones" 
+            },
+            { 
+                id: 3, 
+                name: "Pizza Familiar - Primavera", 
+                category: "pizzas", 
+                price: 10.50, 
+                desc: "8 Porciones. Con jamón, queso mozzarella, maíz dulce, tocineta crujiente y salsa napolitana.", 
+                img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80", 
+                badge: "Especial 8 Pzas" 
+            },
+
+            // PIZZAS MEDIANAS
+            { 
+                id: 4, 
+                name: "Pizza Mediana - Margarita / Jamón y Queso", 
+                category: "pizzas", 
+                price: 6.50, 
+                desc: "6 Porciones. Deliciosa combinación de jamón, queso mozzarella fundido y salsa napolitana.", 
+                img: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=600&q=80", 
+                badge: "6 Porciones" 
+            },
+            { 
+                id: 5, 
+                name: "Pizza Mediana - Pepperoni o Primavera", 
+                category: "pizzas", 
+                price: 7.00, 
+                desc: "6 Porciones. Elige entre Pepperoni crujiente o Primavera (Jamón, queso, maíz, tocineta y salsa napolitana).", 
+                img: "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?auto=format&fit=crop&w=600&q=80", 
+                badge: "6 Porciones" 
+            },
+
+            // PIZZAS PERSONALES
+            { 
+                id: 6, 
+                name: "Pizza Personal - Jamón y Queso", 
+                category: "pizzas", 
+                price: 4.50, 
+                desc: "4 Porciones. Perfecta para una persona. Jamón, queso mozzarella y salsa napolitana.", 
+                img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=600&q=80", 
+                badge: "4 Porciones" 
+            },
+            { 
+                id: 7, 
+                name: "Pizza Personal - Pepperoni o Primavera", 
+                category: "pizzas", 
+                price: 5.00, 
+                desc: "4 Porciones. Sabor intenso a Pepperoni o Primavera (con maíz dulce y tocineta).", 
+                img: "https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?auto=format&fit=crop&w=600&q=80", 
+                badge: "4 Porciones" 
+            },
+
+            // COMBOS Y ALAS
+            { 
+                id: 8, 
+                name: "Combo de Dos Familiares", 
+                category: "combos", 
+                price: 16.00, 
+                desc: "2 Pizzas Familiares (Jamón y Queso + Jamón y Queso) + Refresco Retornable frío.", 
+                img: "https://images.unsplash.com/photo-1590947132387-155cc02f3212?auto=format&fit=crop&w=600&q=80", 
+                badge: "Super Combo" 
+            },
+            { 
+                id: 9, 
+                name: "Combo Alas y Papas", 
+                category: "combos", 
+                price: 6.00, 
+                desc: "500gr de Alas (Salsas: BBQ, Búfalo o Naturales) + 200gr de Papas Fritas + 1 Salsa especial.", 
+                img: "https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=600&q=80", 
+                badge: "Popular" 
+            },
+            { 
+                id: 10, 
+                name: "Combo Familiar de Alas", 
+                category: "combos", 
+                price: 12.00, 
+                desc: "1000gr de Alas (BBQ, Búfalo o Naturales) + 400gr de Papas Fritas + 1 Refresco 1.5 Litros.", 
+                img: "https://images.unsplash.com/photo-1567620832903-9fc6debc209f?auto=format&fit=crop&w=600&q=80", 
+                badge: "Familiar Alas" 
+            },
+            { 
+                id: 11, 
+                name: "Combo 10 Pasteles + Salsa", 
+                category: "combos", 
+                price: 3.50, 
+                desc: "10 crujientes pastelitos doraditos acompañados de salsa artesanal.", 
+                img: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=600&q=80", 
+                badge: "¡Nuevo Promo!" 
+            },
+
+            // PASAPALOS
+            { 
+                id: 12, 
+                name: "Pasapalos - 50 Unidades", 
+                category: "pasapalos", 
+                price: 8.00, 
+                desc: "50 pasapalos a elegir: Tequeños, Pastelitos, Tamalitos, Empanaditas, Pizzitas y otros.", 
+                img: "https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?auto=format&fit=crop&w=600&q=80", 
+                badge: "50 Unid." 
+            },
+            { 
+                id: 13, 
+                name: "Pasapalos - 100 Unidades", 
+                category: "pasapalos", 
+                price: 14.00, 
+                desc: "100 unidades surtidas ideal para pequeñas reuniones (Tequeños, Pastelitos, Tamalitos, etc).", 
+                img: "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=600&q=80", 
+                badge: "100 Unid." 
+            },
+            { 
+                id: 14, 
+                name: "Pasapalos - 150 Unidades", 
+                category: "pasapalos", 
+                price: 21.00, 
+                desc: "150 pasapalos variados recién fritos para tus celebraciones.", 
+                img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=600&q=80", 
+                badge: "150 Unid." 
+            },
+            { 
+                id: 15, 
+                name: "Pasapalos - 200 Unidades", 
+                category: "pasapalos", 
+                price: 26.00, 
+                desc: "200 unidades surtidas. ¡La mejor opción económica para grandes eventos!", 
+                img: "https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?auto=format&fit=crop&w=600&q=80", 
+                badge: "200 Unid." 
+            },
+
+            // OTROS PRODUCTOS Y BEBIDAS
+            { 
+                id: 16, 
+                name: "Refresco 1.5 Litros", 
+                category: "otros", 
+                price: 1.50, 
+                desc: "Refresco frío de 1.5L para acompañar tu pizza.", 
+                img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=600&q=80" 
+            },
+            { 
+                id: 17, 
+                name: "Refresco 2 Litros", 
+                category: "otros", 
+                price: 1.90, 
+                desc: "Refresco de 2 Litros bien frío.", 
+                img: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=600&q=80" 
+            },
+            { 
+                id: 18, 
+                name: "Porción de Papas Fritas", 
+                category: "otros", 
+                price: 2.00, 
+                desc: "Ración extra de papas fritas crujientes.", 
+                img: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=600&q=80" 
+            },
+            { 
+                id: 19, 
+                name: "Caja de Pizza Adicional", 
+                category: "otros", 
+                price: 1.00, 
+                desc: "Caja de empaque adicional para llevar.", 
+                img: "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?auto=format&fit=crop&w=600&q=80" 
+            }
+        ];
+
+        let cart = [];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMenu('todos');
+            document.getElementById('year').textContent = new Date().getFullYear();
+        });
+
+        function renderMenu(category) {
+            const grid = document.getElementById('menu-grid');
+            grid.innerHTML = '';
+
+            const filteredProducts = category === 'todos' 
+                ? menuProducts 
+                : menuProducts.filter(p => p.category === category);
+
+            filteredProducts.forEach(product => {
+                const card = document.createElement('div');
+                card.className = "bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-brand-red/60 transition-all duration-300 flex flex-col justify-between group shadow-lg";
+                
+                card.innerHTML = `
+                    <div>
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="${product.img}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent opacity-80"></div>
+                            ${product.badge ? `<span class="absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-bold bg-brand-red text-white shadow-md border border-brand-amber">${product.badge}</span>` : ''}
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-serif text-xl font-bold text-white mb-2 group-hover:text-brand-amber transition-colors">${product.name}</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed">${product.desc}</p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6 pt-2 flex items-center justify-between border-t border-zinc-800/80 mt-auto">
+                        <div>
+                            <span class="text-xs text-gray-500 block">Precio</span>
+                            <span class="text-2xl font-extrabold text-white">$${product.price.toFixed(2)}</span>
+                        </div>
+                        <button onclick="addToCart(${product.id})" class="px-4 py-2.5 rounded-xl bg-brand-red hover:bg-brand-darkRed text-white text-sm font-bold transition-all hover:scale-105 flex items-center gap-2 shadow-md">
+                            <i class="fa-solid fa-plus text-xs"></i> Agregar
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterCategory(category) {
+            const buttons = document.querySelectorAll('#category-tabs button');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-brand-red', 'text-white');
+                btn.classList.add('bg-zinc-900', 'text-gray-300');
+            });
+
+            event.currentTarget.classList.remove('bg-zinc-900', 'text-gray-300');
+            event.currentTarget.classList.add('bg-brand-red', 'text-white');
+
+            renderMenu(category);
+        }
+
+        function addToCart(productId) {
+            const product = menuProducts.find(p => p.id === productId);
+            const existing = cart.find(item => item.id === productId);
+
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+
+            updateCartUI();
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartUI();
+        }
+
+        function changeQuantity(productId, change) {
+            const item = cart.find(i => i.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    updateCartUI();
+                }
+            }
+        }
+
+        function clearCart() {
+            cart = [];
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartBadge = document.getElementById('cart-badge');
+            const totalEl = document.getElementById('cart-total');
+
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            if (totalCount > 0) {
+                cartBadge.textContent = totalCount;
+                cartBadge.classList.remove('hidden');
+            } else {
+                cartBadge.classList.add('hidden');
+            }
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="text-center py-12 text-gray-500">
+                        <i class="fa-solid fa-pizza-slice text-5xl mb-4 opacity-30"></i>
+                        <p class="text-base font-medium">Tu carrito está vacío</p>
+                    </div>
+                `;
+            } else {
+                cartItemsContainer.innerHTML = cart.map(item => `
+                    <div class="p-4 bg-zinc-800/80 rounded-xl border border-zinc-700/60 flex items-center justify-between gap-3">
+                        <div class="flex-1">
+                            <h4 class="font-bold text-white text-sm">${item.name}</h4>
+                            <span class="text-xs text-brand-amber font-extrabold">$${(item.price * item.quantity).toFixed(2)}</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-zinc-900 px-2 py-1 rounded-lg border border-zinc-700">
+                            <button onclick="changeQuantity(${item.id}, -1)" class="w-6 h-6 rounded text-gray-400 hover:text-white font-bold flex items-center justify-center">-</button>
+                            <span class="text-xs font-bold w-4 text-center text-white">${item.quantity}</span>
+                            <button onclick="changeQuantity(${item.id}, 1)" class="w-6 h-6 rounded text-gray-400 hover:text-white font-bold flex items-center justify-center">+</button>
+                        </div>
+                        <button onclick="removeFromCart(${item.id})" class="text-gray-500 hover:text-red-400 p-1">
+                            <i class="fa-solid fa-trash-can text-xs"></i>
+                        </button>
+                    </div>
+                `).join('');
+            }
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            totalEl.textContent = `$${total.toFixed(2)}`;
+        }
+
+        function toggleCart() {
+            const drawer = document.getElementById('cart-drawer');
+            drawer.classList.toggle('hidden');
+        }
+
+        // Redirección directa a WhatsApp 04246426547 (584246426547)
+        function sendWhatsAppOrder() {
+            if (cart.length === 0) {
+                alert("Agrega al menos un producto al carrito antes de hacer el pedido.");
+                return;
+            }
+
+            let message = "🍕 *NUEVO PEDIDO - ANDREA'S PIZZA & PASAPALOS* 🍕\n\n";
+            message += "Hola, me gustaría solicitar el siguiente pedido:\n\n";
+
+            cart.forEach(item => {
+                message += `▪ *${item.quantity}x* ${item.name} ($${(item.price * item.quantity).toFixed(2)})\n`;
+            });
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            message += `\n💵 *TOTAL COMPRA:* $${total.toFixed(2)} USD\n`;
+            message += `----------------------------------------\n`;
+            message += "📍 *Dirección de Entrega / Nombre:* ";
+
+            const whatsappUrl = `https://wa.me/584246426547?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
+```
